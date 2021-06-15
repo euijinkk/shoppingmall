@@ -1,0 +1,40 @@
+{
+  "posts": {
+    "data": {
+      "gytks4": [
+        [
+          {
+            "id": 1,
+            "title": "서울컬렉션 성수 블랙 ",
+            "img": "https://image.msscdn.net/images/goods_img/20210105/1736482/1736482_4_500.jpg",
+            "description": "멋진 안경",
+            "price": "120,000",
+            "delivery": "무료 배송"
+          }
+        ]
+      ],
+      "euijin": [
+        [
+          {
+            "id": 1,
+            "title": "서울컬렉션 성수 블랙 ",
+            "img": "https://image.msscdn.net/images/goods_img/20210105/1736482/1736482_4_500.jpg",
+            "description": "멋진 안경",
+            "price": "120,000",
+            "delivery": "무료 배송"
+          }
+        ],
+        [
+          {
+            "id": 2,
+            "title": "서울컬렉션 성수 블랙 ",
+            "img": "https://image.msscdn.net/images/goods_img/20210105/1736482/1736482_4_500.jpg",
+            "description": "멋진 안경",
+            "price": "120,000",
+            "delivery": "무료 배송"
+          }
+        ]
+      ]
+    }
+  }
+}
