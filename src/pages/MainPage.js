@@ -1,8 +1,32 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { Header } from '../component';
+import { Header, Product } from '../component';
+import { getProductData } from '../lib/api/client';
+import { productDataState, userProductDataState } from '../states';
 
 const MainPage = () => {
+  const [productData, setProductData] = useRecoilState(productDataState);
+  const [userProductData, setUserProductData] =
+    useRecoilState(userProductDataState);
+
+  const getData = async () => {
+    const data = await getProductData();
+    setProductData(data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  //   useEffect(() => {
+  //     (async () => {
+  //       const data = await getProductData();
+  //       setProductData(data);
+  //     })();
+  // }, []);
+
   return (
     <MainWrapper>
       <Header />
@@ -11,7 +35,13 @@ const MainPage = () => {
         <span>상의</span>
         <span>하의</span>
         <span>신발</span>
-        <span>악세사리</span>
+        <span>악세서리</span>
+      </div>
+      <div>
+        {productData &&
+          Object.keys(productData).map((user, index) => (
+            <Product key={index} userData={productData[user]} user={user} />
+          ))}
       </div>
     </MainWrapper>
   );
