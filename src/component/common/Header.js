@@ -1,14 +1,21 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { loginMailState } from '../../states';
 
-const Header = ({onLogout}) => {
+const Header = ({authService}) => {
     const history = useHistory();
-    const loginMail = useRecoilValue(loginMailState)
-
+    const [loginMail, setLoginMail] = useRecoilState(loginMailState)
+    console.log("authService",authService);
+    const onLogout = () => {
+        console.log("authService",authService);
+        authService.logout();
+        setLoginMail("");
+        history.push('/');
+      };
     return (
+        
         <HeaderWrapper>
             <h1 className="logo" onClick={()=> history.push('/')}>
                 SOPT Shop

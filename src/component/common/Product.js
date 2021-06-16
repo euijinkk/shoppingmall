@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Product = ({ userData, user }) => {
   const location = useLocation();
-  console.log(location.pathname);
+
   return (
     <ProductWrapper>
       {userData &&

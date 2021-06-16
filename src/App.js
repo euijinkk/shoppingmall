@@ -26,7 +26,7 @@ const App = ({ authService }) => {
           exact
           path="/my"
           component={() => (
-            <DetailPage data={userProductData} user={loginMail} />
+            <DetailPage data={userProductData} user={loginMail} authService={authService} />
           )}
         />
         <Route exact path="/basket" component={() => <DetailPage />} />

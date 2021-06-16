@@ -15,7 +15,7 @@ const MainPage = ({ authService }) => {
   const [loginMail, setLoginMail] = useRecoilState(loginMailState);
   const [userProductData, setUserProductData] =
     useRecoilState(userProductDataState);
-
+  console.log("authService",authService);
   const history = useHistory();
   const location = useLocation();
   useEffect(() => {
@@ -28,10 +28,7 @@ const MainPage = ({ authService }) => {
       console.log(userProductData)
   }, [userProductData])
 
-  const onLogout = () => {
-    authService.logout();
-    setLoginMail("");
-  };
+  
 
   // useEffect(() => {
   //     authService.onAuthChange((user) => {
@@ -59,7 +56,7 @@ const MainPage = ({ authService }) => {
 
   return (
     <MainWrapper>
-      <Header onLogout={onLogout} />
+      <Header authService={authService} />
       <div className="category">
         <span>All</span>
         <span>상의</span>
