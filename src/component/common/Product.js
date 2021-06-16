@@ -2,10 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Product = ({ userData, user }) => {
-  console.log(userData);
   return (
     <ProductWrapper>
-      {userData.map((data) => (
+      {userData && userData.map((data) => (
         <div key={data[0].id} className="product">
           <div className="product--list">
             <img src={data[0].img} alt="" />

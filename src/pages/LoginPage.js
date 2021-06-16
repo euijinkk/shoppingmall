@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { isLoginState } from '../states';
+import { loginMailState } from '../states';
 
 const LoginPage = ({ authService }) => {
-  const setIsLogin = useSetRecoilState(isLoginState);
+  const setLoginMail = useSetRecoilState(loginMailState);
   const history = useHistory();
   const goToMain = (userMail) => {
+    setLoginMail(userMail);
     history.push({
       pathname: '/',
       state: { mail: userMail },
@@ -16,17 +17,18 @@ const LoginPage = ({ authService }) => {
   const onLogin = (event) => {
     authService //
       .login(event.currentTarget.textContent)
+    //   .then(data => console.log(data));
       .then(data => goToMain(data.additionalUserInfo.profile.email))
+    
     //   .then(data => console.log(data))
         // goToMain(data.additionalUserInfo.profile.mail));
     //   .then((data) => goToMain(data.user.uid));
-    setIsLogin(true);
   };
-  useEffect(() => {
-    authService.onAuthChange((user) => {
-      user && goToMain(user.uid);
-    });
-  });
+//   useEffect(() => {
+//     authService.onAuthChange((user) => {
+//       user && goToMain(user.uid);
+//     });
+//   });
   return (
     <LoginWrapper>
       <div className="logo">SOPT Shop</div>

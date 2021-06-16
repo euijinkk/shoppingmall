@@ -10,7 +10,7 @@ export const userProductDataState = atom({
     default: []
 })
 
-export const isLoginState = atom({
-    key:"isLoginState",
-    default:false
+export const loginMailState = atom({
+    key:"loginMailState",
+    default: ""
 })

@@ -4,27 +4,33 @@ import { useHistory, useLocation } from 'react-router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { isLoginState } from '../states';
+import { loginMailState } from '../states';
 import { Header, Product } from '../component';
 import { getProductData } from '../lib/api/client';
 import { productDataState, userProductDataState } from '../states';
+import AddIcon from '@material-ui/icons/Add';
 
 const MainPage = ({ authService }) => {
   const [productData, setProductData] = useRecoilState(productDataState);
-  const setIsLogin = useSetRecoilState(isLoginState);
+  const [loginMail, setLoginMail] = useRecoilState(loginMailState);
   const [userProductData, setUserProductData] =
     useRecoilState(userProductDataState);
-  const isLogin = useRecoilValue(isLoginState);
 
   const history = useHistory();
   const location = useLocation();
   useEffect(() => {
-    isLogin && console.log(location.state.mail);
-  }, [isLogin]);
+    console.log(loginMail);
+    loginMail && setUserProductData(productData[loginMail]);
+
+  }, [loginMail]);
+
+  useEffect(() => {
+      console.log(userProductData)
+  }, [userProductData])
 
   const onLogout = () => {
     authService.logout();
-    setIsLogin(false);
+    setLoginMail("");
   };
 
   // useEffect(() => {
@@ -67,11 +73,24 @@ const MainPage = ({ authService }) => {
             <Product key={index} userData={productData[user]} user={user} />
           ))}
       </div>
+      {loginMail && <MyButton />}
     </MainWrapper>
   );
 };
 
 export default MainPage;
+
+const MyButton = styled(AddIcon)`
+  width: 100px;
+  height: 100px;
+  color: white;
+  font-size: 40px;
+  position:absolute;
+  right:20px;
+  bottom:20px;
+  background-color:skyblue;
+  border-radius: 50%;
+`;
 
 const MainWrapper = styled.section`
   .category {
