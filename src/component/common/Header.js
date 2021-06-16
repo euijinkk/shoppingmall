@@ -1,7 +1,13 @@
 import React from 'react';
+import { useHistory } from 'react-router';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { isLoginState } from '../../states';
 
-const Header = () => {
+const Header = ({onLogout}) => {
+    const history = useHistory();
+    const isLogin = useRecoilValue(isLoginState)
+
     return (
         <HeaderWrapper>
             <h1 className="logo">
@@ -11,7 +17,7 @@ const Header = () => {
             <ul className="menu">
                 <li>장바구니</li>
                 <li>My</li>
-                <li>Login</li>
+                {isLogin ? <li onClick={onLogout}>Logout</li> : <li onClick={()=> {history.push('/login')}}>Login</li>}
             </ul>
         </HeaderWrapper>
     );
