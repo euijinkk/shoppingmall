@@ -10,13 +10,13 @@ const Header = ({onLogout}) => {
 
     return (
         <HeaderWrapper>
-            <h1 className="logo">
+            <h1 className="logo" onClick={()=> history.push('/')}>
                 SOPT Shop
             </h1>
             <input type="text" />
             <ul className="menu">
                 <li onClick={()=> {history.push('/basket')}} >장바구니</li>
-                <li onClick={()=> {history.push('/my')}} >My</li>
+                <li onClick={()=> {loginMail ? history.push('/my') : history.push('/login')}} >My</li>
                 { loginMail ? <li onClick={onLogout}>Logout</li> : <li onClick={()=> {history.push('/login')}}>Login</li>}
             </ul>
         </HeaderWrapper>
@@ -39,6 +39,7 @@ const HeaderWrapper = styled.header`
         font-size:20px;
         font-weight:bold;
         margin: 0 20px;
+        cursor:pointer;
     }
     
     input{

@@ -25,13 +25,9 @@ const App = ({ authService }) => {
         <Route
           exact
           path="/my"
-          component={() =>
-            loginMail ? (
-              <DetailPage data={userProductData} user={loginMail} />
-            ) : (
-              <LoginPage authService={authService} />
-            )
-          }
+          component={() => (
+            <DetailPage data={userProductData} user={loginMail} />
+          )}
         />
         <Route exact path="/basket" component={() => <DetailPage />} />
       </Switch>

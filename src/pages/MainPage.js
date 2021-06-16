@@ -70,7 +70,7 @@ const MainPage = ({ authService }) => {
       <div className="product--container">
         {productData &&
           Object.keys(productData).map((user, index) => (
-            <Product key={index} userData={productData[user]} user={user} />
+            <Product key={index} userData={productData[user]} user={loginMail} />
           ))}
       </div>
       {loginMail && <MyButton />}
@@ -110,6 +110,5 @@ const MainWrapper = styled.section`
     }
   }
   .product--container {
-    padding-left: 20px;
   }
 `;
