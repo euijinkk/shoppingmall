@@ -7,9 +7,7 @@ import { loginMailState } from '../../states';
 const Header = ({authService}) => {
     const history = useHistory();
     const [loginMail, setLoginMail] = useRecoilState(loginMailState)
-    console.log("authService",authService);
     const onLogout = () => {
-        console.log("authService",authService);
         authService.logout();
         setLoginMail("");
         history.push('/');
@@ -22,7 +20,8 @@ const Header = ({authService}) => {
             </h1>
             <input type="text" />
             <ul className="menu">
-                <li onClick={()=> {history.push('/basket')}} >장바구니</li>
+                {loginMail && <li>{loginMail}님 반갑습니다.</li>}
+                <li onClick={()=> {history.push('/cart')}} >Cart</li>
                 <li onClick={()=> {loginMail ? history.push('/my') : history.push('/login')}} >My</li>
                 { loginMail ? <li onClick={onLogout}>Logout</li> : <li onClick={()=> {history.push('/login')}}>Login</li>}
             </ul>

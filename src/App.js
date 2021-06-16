@@ -29,7 +29,7 @@ const App = ({ authService }) => {
             <DetailPage data={userProductData} user={loginMail} authService={authService} />
           )}
         />
-        <Route exact path="/basket" component={() => <DetailPage />} />
+        <Route exact path="/cart" component={() => <DetailPage />} />
       </Switch>
     </Router>
   );
