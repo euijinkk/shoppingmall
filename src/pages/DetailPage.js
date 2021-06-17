@@ -8,7 +8,7 @@ const DetailPage = ({ data, user, authService }) => {
     <DetailWrapper>
       <Header authService={authService} />
       <h2 className="subtitle">내가 등록한 상품</h2>
-      <Product userData={data.product} user={user} />
+      { (data && data.product) ? <Product userData={data.product} user={user} /> : <div>담아둔 상품이 없습니다.</div>}
     </DetailWrapper>
   );
 };

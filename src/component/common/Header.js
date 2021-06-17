@@ -21,7 +21,7 @@ const Header = ({authService}) => {
             <input type="text" />
             <ul className="menu">
                 {loginMail && <li>{loginMail}님 반갑습니다.</li>}
-                <li onClick={()=> {history.push('/cart')}} >Cart</li>
+                <li onClick={()=> {loginMail ? history.push('/cart') : history.push('/login')}} >Cart</li>
                 <li onClick={()=> {loginMail ? history.push('/my') : history.push('/login')}} >My</li>
                 { loginMail ? <li onClick={onLogout}>Logout</li> : <li onClick={()=> {history.push('/login')}}>Login</li>}
             </ul>
