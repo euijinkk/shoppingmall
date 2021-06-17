@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { RadioGroup, Radio, FormControlLabel } from '@material-ui/core';
+import { RadioGroup, Radio, FormControlLabel, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import BasicTextFields from '../service/material/BasicTextFields';
+import CustomizedRadios from '../service/material/CustomizedRadios';
 
 
 const useStyles = makeStyles({
@@ -70,25 +72,10 @@ const RegisterPage = () => {
           제목 <input type="text" />
         </span>
         <span>카테고리</span>
-        <span>가격 </span>
+        <span className="price"><span>가격</span> <BasicTextFields /><span>원</span></span>
         <span className="delivery">
           <span className="delivery--text">배송비</span>
-          <RadioGroup2
-            defaultValue="female"
-            aria-label="gender"
-            name="customized-radios"
-          >
-            <FormControlLabel2
-              value="female"
-              control={<StyledRadio />}
-              label="Female"
-            />
-            <FormControlLabel2
-              value="male"
-              control={<StyledRadio />}
-              label="Male"
-            />
-          </RadioGroup2>
+          <CustomizedRadios />
         </span>
       </div>
       <input type="file" />
@@ -132,6 +119,10 @@ const RegisterWrapper = styled.section`
     display: grid;
     grid-template-columns: repeat(2, 300px);
     grid-template-rows: repeat(2, 80px);
+    .price{
+        display:flex;
+        align-items:center;
+    }
 
     .delivery{
         display:flex;
