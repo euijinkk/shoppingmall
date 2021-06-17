@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import styled from 'styled-components'
 
 const useStyles = makeStyles({
   root: {
@@ -64,9 +65,16 @@ function StyledRadio(props) {
 
 export default function CustomizedRadios() {
   return (
-      <RadioGroup defaultValue="female" aria-label="gender" name="customized-radios">
-        <FormControlLabel value="무료배송" control={<StyledRadio />} label="Female" />
-        <FormControlLabel value="유료배송" control={<StyledRadio />} label="Male" />
-      </RadioGroup>
+      <RadioGroup2 defaultValue="female" aria-label="gender" name="customized-radios">
+        <FormControlLabel value="무료배송" control={<StyledRadio />} label="무료배송" />
+        <FormControlLabel value="유료배송" control={<StyledRadio />} label="유료배송" />
+      </RadioGroup2>
   );
 }
+
+const RadioGroup2 = styled(RadioGroup)`
+  display:flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  flex:1;
+`

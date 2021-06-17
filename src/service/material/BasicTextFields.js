@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicTextFields() {
+export default function BasicTextFields({type, title}) {
   const classes = useStyles();
 
   return (
@@ -23,8 +23,8 @@ export default function BasicTextFields() {
         InputLabelProps={{
           shrink: true,
         }}
-        type="number"
-        label="Price"
+        type={type}
+        label={title}
         variant="outlined"
       />
     </form>
