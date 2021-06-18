@@ -10,6 +10,7 @@ const Product = ({ userData, user, register }) => {
   const history = useHistory();
   const location = useLocation();
   const loginMail = useRecoilValue(loginMailState);
+  console.log(userData);
   return (
     <ProductWrapper>
       {userData &&

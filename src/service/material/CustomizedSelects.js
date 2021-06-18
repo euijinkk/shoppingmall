@@ -16,12 +16,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedSelects({handleRegist}) {
+export default function CustomizedSelects({handleChange}) {
   const classes = useStyles();
-
-  const handleChange = (event) => {
-    handleRegist(event)
-  };
 
   return (
       <FormControl variant="outlined" className={classes.formControl}>

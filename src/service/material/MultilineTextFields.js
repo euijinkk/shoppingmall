@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MultilineTextFields({handleRegist}) {
+export default function MultilineTextFields({handleChange}) {
   const classes = useStyles();
 
   return (
@@ -25,7 +25,7 @@ export default function MultilineTextFields({handleRegist}) {
           placeholder="내용을 입력하세요."
           variant="outlined"
           name="description"
-          onChange={handleRegist}
+          onChange={handleChange}
         />
     </Form>
   );

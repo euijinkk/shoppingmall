@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicTextFields({type, title, handleRegist}) {
+export default function BasicTextFields({type, title, handleChange}) {
   const classes = useStyles();
 
   return (
@@ -27,7 +27,7 @@ export default function BasicTextFields({type, title, handleRegist}) {
         type={type}
         label={title}
         variant="outlined"
-        onChange={handleRegist}
+        onChange={handleChange}
       />
     </form>
   );
