@@ -11,7 +11,27 @@
               "description": "멋진 안경",
               "price": "120,000",
               "delivery": "무료 배송",
-              "category": "악세서리"
+              "category": "악세서리",
+              "review": [
+                [
+                  {
+                    "id": 1,
+                    "mail": "euijinkk97@gmail.com",
+                    "title": "좋아요3",
+                    "description": "만족스럽습니다3.",
+                    "rating": 5
+                  }
+                ],
+                [
+                  {
+                    "id": 2,
+                    "mail": "euijinkk97@gmail.com",
+                    "title": "좋아요4",
+                    "description": "만족스럽습니다4.",
+                    "rating": 4
+                  }
+                ]
+              ]
             }
           ]
         ],
@@ -27,7 +47,27 @@
               "description": "멋진 안경",
               "price": "120,000",
               "delivery": "무료 배송",
-              "category": "악세서리"
+              "category": "악세서리",
+              "review": [
+                [
+                  {
+                    "id": 1,
+                    "mail": "gytks4@naver.com",
+                    "title": "좋아요",
+                    "description": "만족스럽습니다.",
+                    "rating": 5
+                  }
+                ],
+                [
+                  {
+                    "id": 2,
+                    "mail": "gytks4@naver.com",
+                    "title": "좋아요2",
+                    "description": "만족스럽습니다2.",
+                    "rating": 4
+                  }
+                ]
+              ]
             }
           ],
           [

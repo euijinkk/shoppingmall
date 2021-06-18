@@ -1,8 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState} from 'recoil';
 import styled from 'styled-components';
 import { loginMailState } from '../states';
 import { Header, Product } from '../component';
@@ -14,20 +12,13 @@ const MainPage = ({ authService }) => {
   const [loginMail, setLoginMail] = useRecoilState(loginMailState);
   const [userProductData, setUserProductData] =
     useRecoilState(userProductDataState);
-  const history = useHistory();
-  const location = useLocation();
 
   useEffect(() => {
     loginMail && setUserProductData(productData[loginMail]);
   }, [loginMail]);
 
-  useEffect(() => {
-      console.log(userProductData)
-  }, [userProductData])
-
   const getData = async () => {
     const data = await getProductData();
-    console.log("data",data);
     setProductData(data);
   };
 

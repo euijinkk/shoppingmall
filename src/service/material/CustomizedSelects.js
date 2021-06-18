@@ -16,12 +16,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedSelects() {
+export default function CustomizedSelects({handleRegist}) {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    handleRegist(event)
   };
 
   return (
@@ -30,17 +29,17 @@ export default function CustomizedSelects() {
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          value={age}
           onChange={handleChange}
+          name="category"
           label="Category"
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>상의</MenuItem>
-          <MenuItem value={20}>하의</MenuItem>
-          <MenuItem value={30}>신발</MenuItem>
-          <MenuItem value={40}>악세서리</MenuItem>
+          <MenuItem value="상의">상의</MenuItem>
+          <MenuItem value="하의">하의</MenuItem>
+          <MenuItem value="신발">신발</MenuItem>
+          <MenuItem value="악세서리">악세서리</MenuItem>
         </Select>
       </FormControl>
   );

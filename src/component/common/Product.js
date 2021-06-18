@@ -10,14 +10,13 @@ const Product = ({ userData, user, register }) => {
   const history = useHistory();
   const location = useLocation();
   const loginMail = useRecoilValue(loginMailState);
-  console.log(userData);
   return (
     <ProductWrapper>
       {userData &&
         userData.map((data) => (
           <div key={data[0].id} className="product">
             <div className="product--list">
-              <img src={data[0].img} alt="" />
+              <img src={data[0].img} alt="product" />
               <div className="metadata">
                 <span>{data[0].title}</span>
                 <span>{data[0].price}</span>
