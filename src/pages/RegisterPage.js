@@ -26,7 +26,7 @@ const RegisterPage = () => {
     img: '',
     description: '',
     price: '',
-    delivery: '',
+    delivery: '무료배송',
     category: '',
     review: [],
   });
@@ -59,10 +59,7 @@ const RegisterPage = () => {
     }
 
   const handleRegist = async () => {
-    // console.log(productData[loginMail].product);
-    // console.log([form]);
-    // console.log(productData[loginMail].product.concat([form]));
-    const newData = productData[loginMail].product.concat([[form]]);
+    const newData = productData[loginMail].product ? productData[loginMail].product.concat([[form]]) : [[form]];
     const newData2 = {
       ...productData, [loginMail]: {
         product: newData
