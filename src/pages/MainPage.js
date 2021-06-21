@@ -26,9 +26,6 @@ const MainPage = ({ authService }) => {
     const data = await getProductData();
     setProductData(data);
   };
-  useEffect(()=> {
-    console.log(productData);
-  }, [productData])
   useEffect(() => {
     getData();
   }, []);

@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomizedSelects({handleChange, form}) {
   const classes = useStyles();
-  console.log(form.category);
 
   return (
       <FormControl variant="outlined" className={classes.formControl}>

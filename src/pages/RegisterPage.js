@@ -81,15 +81,19 @@ const RegisterPage = () => {
        newData = productData[loginMail].product.map(item => item[0].id === form.id ? [form] : item);
         willGo = '/my'
     } else {
-      setForm({
+      console.log("id값",productData[loginMail]
+      ? productData[loginMail].product.length + 1
+      : 1)
+      const newOne = {
         ...form,
         id: productData[loginMail]
           ? productData[loginMail].product.length + 1
           : 1,
-      });
+      }
+      setForm(newOne);
       newData = productData[loginMail].product
-        ? productData[loginMail].product.concat([[form]])
-        : [[form]];
+        ? productData[loginMail].product.concat([[newOne]])
+        : [[newOne]];
         willGo = '/';
     }
     newData2 = {
@@ -102,6 +106,9 @@ const RegisterPage = () => {
     setProductData(newData3);
     history.push(willGo);
   };
+  useEffect(() => {
+    console.log(form);
+  }, [form])
 
   return (
     <RegisterWrapper>
