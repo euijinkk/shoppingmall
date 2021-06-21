@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { createProductData } from '../lib/api/client';
@@ -16,20 +16,42 @@ import {
 
 const RegisterPage = () => {
   const history = useHistory();
+  const location = useLocation();
   const loginMail = useRecoilValue(loginMailState);
   const [productData, setProductData] = useRecoilState(productDataState);
   const [previewURL, setPreviewURL] = useState();
 
-  const [form, setForm] = useState({
-    id: 0,
-    title: '',
-    img: '',
-    description: '',
-    price: '',
-    delivery: '무료배송',
-    category: '',
-    review: [],
-  });
+  const [form, setForm] = useState(
+    location.state
+      ? location.state.data[0]
+      : {
+          id: 0,
+          title: '',
+          img: '',
+          description: '',
+          price: 0,
+          delivery: '무료배송',
+          category: '',
+          review: [],
+        },
+  );
+
+
+  // const [form, setForm] = useState({
+  //   id: 0,
+  //   title: '',
+  //   img: '',
+  //   description: '',
+  //   price: 0,
+  //   delivery: '무료배송',
+  //   category: '',
+  //   review: [],
+  // });
+
+  // console.log(location.state.data);
+  // useEffect(() => {
+  //   location.state && setForm(location.state.data[0]);
+  // }, []);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -39,33 +61,38 @@ const RegisterPage = () => {
       [name]: event.target.value,
     });
   };
-  
+
   const handleImageUpload = (event) => {
     event.preventDefault();
     let file = event.target.files[0];
-      let reader = new FileReader();
-      reader.onloadend = (e) => {
-        setPreviewURL(reader.result);
-        setForm({ ...form, img: reader.result });
-      };
-      if (file) reader.readAsDataURL(file);
-    }
+    let reader = new FileReader();
+    reader.onloadend = (e) => {
+      setPreviewURL(reader.result);
+      setForm({ ...form, img: reader.result });
+    };
+    if (file) reader.readAsDataURL(file);
+  };
 
   const handleRegist = async () => {
     setForm({
       ...form,
-      id: productData[loginMail] ? productData[loginMail].product.length +1 : 1,
+      id: productData[loginMail]
+        ? productData[loginMail].product.length + 1
+        : 1,
     });
-    const newData = productData[loginMail].product ? productData[loginMail].product.concat([[form]]) : [[form]];
+    const newData = productData[loginMail].product
+      ? productData[loginMail].product.concat([[form]])
+      : [[form]];
     const newData2 = {
-      ...productData, [loginMail]: {
-        product: newData
-      }
-    }
+      ...productData,
+      [loginMail]: {
+        product: newData,
+      },
+    };
     const newData3 = await createProductData(newData2);
     setProductData(newData3);
     history.push('/');
-  }
+  };
 
   return (
     <RegisterWrapper>
@@ -74,33 +101,37 @@ const RegisterPage = () => {
           <span>제목</span>{' '}
           <BasicTextFields
             title="title"
-            type="text"
             handleChange={handleChange}
+            form={form}
           />
         </span>
         <span className="category container">
           <span>카테고리</span>
-          <CustomizedSelects handleChange={handleChange} />
+          <CustomizedSelects handleChange={handleChange} form={form} />
         </span>
         <span className="price container">
           <span>가격</span>{' '}
           <BasicTextFields
             title="price"
-            type="number"
             handleChange={handleChange}
+            form={form}
           />
           <span>원</span>
         </span>
         <span className="delivery container">
           <span className="delivery--text">배송비</span>
-          <CustomizedRadios handleChange={handleChange} />
+          <CustomizedRadios handleChange={handleChange} form={form} />
         </span>
       </div>
       <input type="file" name="img" onChange={handleImageUpload} />
-      {previewURL && (
-        <img src={previewURL} alt="" width="200px" height="200px" />
+      {form.img ? (
+        <img src={form.img} alt="" width="200px" height="200px" />
+      ) : (
+        previewURL && (
+          <img src={previewURL} alt="" width="200px" height="200px" />
+        )
       )}
-      <MultilineTextFields handleChange={handleChange} />
+      <MultilineTextFields handleChange={handleChange} form={form} />
       <div>
         <span className="registBtn" onClick={handleRegist}>
           등록

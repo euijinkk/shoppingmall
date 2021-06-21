@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MultilineTextFields({handleChange}) {
+export default function MultilineTextFields({handleChange, form}) {
   const classes = useStyles();
 
   return (
@@ -26,6 +26,7 @@ export default function MultilineTextFields({handleChange}) {
           variant="outlined"
           name="description"
           onChange={handleChange}
+          defaultValue={form.description ? form.description : ""}
         />
     </Form>
   );

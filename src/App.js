@@ -17,7 +17,7 @@ const App = ({ authService }) => {
           path="/login"
           component={() => <LoginPage authService={authService} />}
         />
-          <Route exact path="/register" component={() => <RegisterPage />} />
+          <Route exact path="/regist" component={() => <RegisterPage />} />
         <Route
           exact
           path="/my"

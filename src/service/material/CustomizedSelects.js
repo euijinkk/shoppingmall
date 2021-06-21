@@ -16,8 +16,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedSelects({handleChange}) {
+export default function CustomizedSelects({handleChange, form}) {
   const classes = useStyles();
+  console.log(form.category);
 
   return (
       <FormControl variant="outlined" className={classes.formControl}>
@@ -28,6 +29,7 @@ export default function CustomizedSelects({handleChange}) {
           onChange={handleChange}
           name="category"
           label="Category"
+          defaultValue={form.category ? form.category : ""}
         >
           <MenuItem value="">
             <em>None</em>

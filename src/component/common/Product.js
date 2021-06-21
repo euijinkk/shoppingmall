@@ -20,11 +20,15 @@ const Product = ({ userData, user, register }) => {
         product: newData
       }
     }
-    // const newData2 = {
-    //   ...productData}
-    // console.log("newData2", newData2);
     const newData3 = await createProductData(newData2);
     setProductData(newData3);
+  }
+
+  const handleEdit = async (data) => {
+    history.push({pathname:'/regist', 
+    state: {
+      data: data
+    }});
   }
 
   return (
@@ -45,13 +49,13 @@ const Product = ({ userData, user, register }) => {
               <button className="basket">장바구니</button>
             ) : (
               <div className="buttonContainer">
-                <button className="modify--btn">수정</button>
+                <button className="modify--btn" onClick={() => handleEdit(data)}>수정</button>
                 <button onClick={() => handleDelete(data)}>삭제</button>
               </div>
             )}
           </div>
         ))}
-        {loginMail && <MyButton onClick={() => history.push('/register')} />}
+        {loginMail && <MyButton onClick={() => history.push('/regist')} />}
     </ProductWrapper>
   );
 };

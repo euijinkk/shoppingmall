@@ -63,10 +63,10 @@ function StyledRadio(props) {
   );
 }
 
-export default function CustomizedRadios({handleChange}) {
+export default function CustomizedRadios({handleChange, form}) {
 
   return (
-      <RadioGroup2 defaultValue="무료배송" aria-label="delivery" name="delivery" onChange={handleChange} >
+      <RadioGroup2 defaultValue={form.delivery ? form.delivery : "무료배송"} aria-label="delivery" name="delivery" onChange={handleChange} >
         <FormControlLabel value="무료배송" control={<StyledRadio />} label="무료배송" />
         <FormControlLabel value="유료배송" control={<StyledRadio />} label="유료배송" />
       </RadioGroup2>

@@ -11,9 +11,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicTextFields({type, title, handleChange}) {
+export default function BasicTextFields({title, handleChange, form}) {
   const classes = useStyles();
-
+  // console.log(form);
+  // console.log(form.title);
+  console.log(form[title]);
+  const title2 = form.title;
+  const price2 = form.price;
+  console.log(title2);
   return (
     <form className={classes.root} noValidate autoComplete="off">
       {/* <TextField id="standard-basic" label="Standard" /> */}
@@ -24,10 +29,12 @@ export default function BasicTextFields({type, title, handleChange}) {
           shrink: true,
         }}
         name={title}
-        type={type}
+        type="text"
         label={title}
         variant="outlined"
         onChange={handleChange}
+        // defaultValue={title==="title" ? title2 : price2}
+        defaultValue={form[title] ? form[title] : ""}
       />
     </form>
   );

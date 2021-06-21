@@ -17,21 +17,19 @@ const MainPage = ({ authService }) => {
     loginMail && setUserProductData(productData[loginMail]);
   }, [loginMail, productData, setUserProductData]);
 
-  const getData = useCallback(async () => {
+  // const getData = useCallback(async () => {
+  //   const data = await getProductData();
+  //   setProductData(data);
+  // },[setProductData]);
+
+  const getData = async () => {
     const data = await getProductData();
     setProductData(data);
-  },[setProductData]);
+  };
 
   useEffect(() => {
     getData();
-  }, [getData]);
-
-  //   useEffect(() => {
-  //     (async () => {
-  //       const data = await getProductData();
-  //       setProductData(data);
-  //     })();
-  // }, []);
+  }, []);
 
   return (
     <MainWrapper>
