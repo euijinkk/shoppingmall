@@ -31,13 +31,6 @@ const RegisterPage = () => {
     review: [],
   });
 
-  useEffect(() => {
-    setForm({
-      ...form,
-      id: productData[loginMail] ? productData[loginMail].product.length : 1,
-    });
-  }, []);
-
   const handleChange = (event) => {
     event.preventDefault();
     const name = event.target.name;
@@ -59,6 +52,10 @@ const RegisterPage = () => {
     }
 
   const handleRegist = async () => {
+    setForm({
+      ...form,
+      id: productData[loginMail] ? productData[loginMail].product.length +1 : 1,
+    });
     const newData = productData[loginMail].product ? productData[loginMail].product.concat([[form]]) : [[form]];
     const newData2 = {
       ...productData, [loginMail]: {

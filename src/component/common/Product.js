@@ -1,16 +1,32 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { loginMailState } from '../../states';
+import { loginMailState, productDataState, userProductDataState } from '../../states';
 import AddIcon from '@material-ui/icons/Add';
+import { createProductData } from '../../lib/api/client';
 
 
 const Product = ({ userData, user, register }) => {
   const history = useHistory();
   const location = useLocation();
   const loginMail = useRecoilValue(loginMailState);
-  console.log(userData);
+  const [productData, setProductData] = useRecoilState(productDataState);
+
+  const handleDelete = async (data) => {
+    const newData = userData.filter(user => user[0].id !== data[0].id);
+    const newData2 = {
+      ...productData, [loginMail]:{
+        product: newData
+      }
+    }
+    // const newData2 = {
+    //   ...productData}
+    // console.log("newData2", newData2);
+    const newData3 = await createProductData(newData2);
+    setProductData(newData3);
+  }
+
   return (
     <ProductWrapper>
       {userData &&
@@ -30,7 +46,7 @@ const Product = ({ userData, user, register }) => {
             ) : (
               <div className="buttonContainer">
                 <button className="modify--btn">수정</button>
-                <button>삭제</button>
+                <button onClick={() => handleDelete(data)}>삭제</button>
               </div>
             )}
           </div>

@@ -1,14 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Header, Product } from '../component';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { loginMailState, productDataState } from '../states';
 
-const DetailPage = ({ data, user, authService }) => {
-    console.log("data",data);
+const DetailPage = ({ authService }) => {
+  const loginMail = useRecoilValue(loginMailState);
+  const [productData, setProductData] = useRecoilState(productDataState);
+  const data = productData[loginMail];
+
   return (
     <DetailWrapper>
       <Header authService={authService} />
       <h2 className="subtitle">내가 등록한 상품</h2>
-      { (data && data.product) ? <Product userData={data.product} user={user} /> : <div>담아둔 상품이 없습니다.</div>}
+      { (data && data.product) ? <Product userData={data.product} user={loginMail} /> : <div>담아둔 상품이 없습니다.</div>}
     </DetailWrapper>
   );
 };

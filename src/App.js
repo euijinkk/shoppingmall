@@ -1,12 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import { MainPage, LoginPage, DetailPage, RegisterPage } from './pages';
-import { loginMailState, productDataState, userProductDataState } from './states';
 
 const App = ({ authService }) => {
-  const userProductData = useRecoilValue(userProductDataState);
-  const loginMail = useRecoilValue(loginMailState);
 
   return (
     <Router>
@@ -26,7 +22,7 @@ const App = ({ authService }) => {
           exact
           path="/my"
           component={() => (
-            <DetailPage data={userProductData} user={loginMail} authService={authService} />
+            <DetailPage authService={authService} />
           )}
         />
         <Route exact path="/cart" component={() => <DetailPage />} />

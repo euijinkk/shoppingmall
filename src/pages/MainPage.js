@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useRecoilState} from 'recoil';
 import styled from 'styled-components';
@@ -15,16 +15,16 @@ const MainPage = ({ authService }) => {
 
   useEffect(() => {
     loginMail && setUserProductData(productData[loginMail]);
-  }, [loginMail]);
+  }, [loginMail, productData, setUserProductData]);
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const data = await getProductData();
     setProductData(data);
-  };
+  },[setProductData]);
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [getData]);
 
   //   useEffect(() => {
   //     (async () => {
