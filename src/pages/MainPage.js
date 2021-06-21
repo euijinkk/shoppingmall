@@ -26,11 +26,13 @@ const MainPage = ({ authService }) => {
     const data = await getProductData();
     setProductData(data);
   };
-
+  useEffect(()=> {
+    console.log(productData);
+  }, [productData])
   useEffect(() => {
     getData();
   }, []);
-
+  
   return (
     <MainWrapper>
       <Header authService={authService} />
@@ -44,7 +46,7 @@ const MainPage = ({ authService }) => {
       <div className="product--container">
         {productData &&
           Object.keys(productData).map((user, index) => (
-            <Product key={index} userData={productData[user].product} user={loginMail} register={user} />
+            <Product key={index} userData={productData[user].product} register={user} />
           ))}
       </div>
       

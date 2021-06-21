@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { createProductData } from '../../lib/api/client';
 
 
-const Product = ({ userData, user, register }) => {
+const Product = ({ userData, register }) => {
   const history = useHistory();
   const location = useLocation();
   const loginMail = useRecoilValue(loginMailState);

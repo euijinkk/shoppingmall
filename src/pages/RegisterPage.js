@@ -74,16 +74,25 @@ const RegisterPage = () => {
   };
 
   const handleRegist = async () => {
-    setForm({
-      ...form,
-      id: productData[loginMail]
-        ? productData[loginMail].product.length + 1
-        : 1,
-    });
-    const newData = productData[loginMail].product
-      ? productData[loginMail].product.concat([[form]])
-      : [[form]];
-    const newData2 = {
+    let newData;
+    let newData2;
+    let willGo;
+    if (form.id!==0) {
+       newData = productData[loginMail].product.map(item => item[0].id === form.id ? [form] : item);
+        willGo = '/my'
+    } else {
+      setForm({
+        ...form,
+        id: productData[loginMail]
+          ? productData[loginMail].product.length + 1
+          : 1,
+      });
+      newData = productData[loginMail].product
+        ? productData[loginMail].product.concat([[form]])
+        : [[form]];
+        willGo = '/';
+    }
+    newData2 = {
       ...productData,
       [loginMail]: {
         product: newData,
@@ -91,7 +100,7 @@ const RegisterPage = () => {
     };
     const newData3 = await createProductData(newData2);
     setProductData(newData3);
-    history.push('/');
+    history.push(willGo);
   };
 
   return (
