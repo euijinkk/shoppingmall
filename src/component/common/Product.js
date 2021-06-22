@@ -43,14 +43,20 @@ const Product = ({ userData, register }) => {
       history.push('/login');
       return;
     }
-
     const a = productData[loginMail].cart.concat([data]);
     console.log(a);
-    const b = { ...productData, [loginMail]: {...productData[loginMail], cart:a} };
+    const b = {
+      ...productData,
+      [loginMail]: { ...productData[loginMail], cart: a },
+    };
     console.log(b);
     setProductData(b);
     await createProductData(b);
   };
+
+  const handleCartDelete = async (data) => {
+    
+  }
 
   return (
     <ProductWrapper>
@@ -66,11 +72,11 @@ const Product = ({ userData, register }) => {
                 <span>{register}</span>
               </div>
             </div>
-            {!(location.pathname === '/my') ? (
+            {location.pathname === '/' ? (
               <button className="basket" onClick={() => handleCart(data)}>
                 장바구니
               </button>
-            ) : (
+            ) : location.pathname === '/my' ? (
               <div className="buttonContainer">
                 <button
                   className="modify--btn"
@@ -80,6 +86,8 @@ const Product = ({ userData, register }) => {
                 </button>
                 <button onClick={() => handleDelete(data)}>삭제</button>
               </div>
+            ) : (
+              <button onClick={() => handleCartDelete(data)}>삭제</button>
             )}
           </div>
         ))}
