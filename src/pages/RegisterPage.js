@@ -36,7 +36,6 @@ const RegisterPage = () => {
         },
   );
 
-
   // const [form, setForm] = useState({
   //   id: 0,
   //   title: '',
@@ -77,30 +76,31 @@ const RegisterPage = () => {
     let newData;
     let newData2;
     let willGo;
-    if (form.id!==0) {
-       newData = productData[loginMail].product.map(item => item[0].id === form.id ? [form] : item);
-        willGo = '/my'
+    if (form.id !== 0) {
+      newData = productData[loginMail].product.map((item) =>
+        item[0].id === form.id ? [form] : item,
+      );
+      willGo = '/my';
     } else {
-      console.log("id값",productData[loginMail]
-      ? productData[loginMail].product.length + 1
-      : 1)
+      console.log(
+        'id값',
+        productData[loginMail] ? productData[loginMail].product.length + 1 : 1,
+      );
       const newOne = {
         ...form,
         id: productData[loginMail]
           ? productData[loginMail].product.length + 1
           : 1,
-      }
+      };
       setForm(newOne);
       newData = productData[loginMail].product
         ? productData[loginMail].product.concat([[newOne]])
         : [[newOne]];
-        willGo = '/';
+      willGo = '/';
     }
     newData2 = {
       ...productData,
-      [loginMail]: {
-        product: newData,
-      },
+      [loginMail]: { ...productData[loginMail], product: newData },
     };
     const newData3 = await createProductData(newData2);
     setProductData(newData3);
@@ -108,7 +108,7 @@ const RegisterPage = () => {
   };
   useEffect(() => {
     console.log(form);
-  }, [form])
+  }, [form]);
 
   return (
     <RegisterWrapper>

@@ -21,6 +21,7 @@ const Product = ({ userData, register }) => {
     const newData2 = {
       ...productData,
       [loginMail]: {
+        ...productData[loginMail],
         product: newData,
       },
     };
@@ -55,13 +56,15 @@ const Product = ({ userData, register }) => {
   };
 
   const handleCartDelete = async (data) => {
-    const a = productData[loginMail].cart.filter(item => item !==data);
+    const a = productData[loginMail].cart.filter((item) => item !== data);
     console.log(a);
-    const b = {...productData, [loginMail]:{...productData[loginMail],
-    cart:a}}
+    const b = {
+      ...productData,
+      [loginMail]: { ...productData[loginMail], cart: a },
+    };
     setProductData(b);
     await createProductData(b);
-  }
+  };
 
   return (
     <ProductWrapper>

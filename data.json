@@ -64,18 +64,6 @@
           ],
           [
             {
-              "id": 4,
-              "title": "하의",
-              "img": "",
-              "description": "하의",
-              "price": "20000",
-              "delivery": "무료배송",
-              "category": "하의",
-              "review": []
-            }
-          ],
-          [
-            {
               "id": 5,
               "title": "신발",
               "img": "",
