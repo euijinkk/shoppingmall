@@ -2,10 +2,13 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { loginMailState, productDataState, userProductDataState } from '../../states';
+import {
+  loginMailState,
+  productDataState,
+  userProductDataState,
+} from '../../states';
 import AddIcon from '@material-ui/icons/Add';
 import { createProductData } from '../../lib/api/client';
-
 
 const Product = ({ userData, register }) => {
   const history = useHistory();
@@ -14,22 +17,40 @@ const Product = ({ userData, register }) => {
   const [productData, setProductData] = useRecoilState(productDataState);
 
   const handleDelete = async (data) => {
-    const newData = userData.filter(user => user[0].id !== data[0].id);
+    const newData = userData.filter((user) => user[0].id !== data[0].id);
     const newData2 = {
-      ...productData, [loginMail]:{
-        product: newData
-      }
-    }
+      ...productData,
+      [loginMail]: {
+        product: newData,
+      },
+    };
     const newData3 = await createProductData(newData2);
     setProductData(newData3);
-  }
+  };
 
   const handleEdit = async (data) => {
-    history.push({pathname:'/regist', 
-    state: {
-      data: data
-    }});
-  }
+    history.push({
+      pathname: '/regist',
+      state: {
+        data: data,
+      },
+    });
+  };
+
+  const handleCart = async (data) => {
+    // console.log(data);
+    if (!loginMail) {
+      history.push('/login');
+      return;
+    }
+
+    const a = productData[loginMail].cart.concat([data]);
+    console.log(a);
+    const b = { ...productData, [loginMail]: {...productData[loginMail], cart:a} };
+    console.log(b);
+    setProductData(b);
+    await createProductData(b);
+  };
 
   return (
     <ProductWrapper>
@@ -46,16 +67,23 @@ const Product = ({ userData, register }) => {
               </div>
             </div>
             {!(location.pathname === '/my') ? (
-              <button className="basket">장바구니</button>
+              <button className="basket" onClick={() => handleCart(data)}>
+                장바구니
+              </button>
             ) : (
               <div className="buttonContainer">
-                <button className="modify--btn" onClick={() => handleEdit(data)}>수정</button>
+                <button
+                  className="modify--btn"
+                  onClick={() => handleEdit(data)}
+                >
+                  수정
+                </button>
                 <button onClick={() => handleDelete(data)}>삭제</button>
               </div>
             )}
           </div>
         ))}
-        {loginMail && <MyButton onClick={() => history.push('/regist')} />}
+      {loginMail && <MyButton onClick={() => history.push('/regist')} />}
     </ProductWrapper>
   );
 };
@@ -67,12 +95,12 @@ const MyButton = styled(AddIcon)`
   height: 100px;
   color: white;
   font-size: 40px;
-  position:absolute;
-  right:20px;
-  bottom:20px;
-  background-color:skyblue;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  background-color: skyblue;
   border-radius: 50%;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 const ProductWrapper = styled.div`
@@ -99,12 +127,12 @@ const ProductWrapper = styled.div`
         line-height: 40px;
       }
     }
-    .buttonContainer{
-      display:flex;
-      flex-direction:column;
+    .buttonContainer {
+      display: flex;
+      flex-direction: column;
 
-      .modify--btn{
-        margin-bottom:7px;
+      .modify--btn {
+        margin-bottom: 7px;
       }
     }
     button {
@@ -113,7 +141,7 @@ const ProductWrapper = styled.div`
       outline: none;
       background-color: skyblue;
       color: white;
-      cursor:pointer;
+      cursor: pointer;
     }
   }
 `;
