@@ -112,8 +112,11 @@ const MyButton = styled(AddIcon)`
   color: white;
   font-size: 40px;
   position: absolute;
-  right: 20px;
+  /* right: 20px; */
   bottom: 20px;
+  left:50%;
+  transform:translateX(-50%);
+  /* absoulte를 가운데 정렬 시키는 방법 */
   background-color: skyblue;
   border-radius: 50%;
   cursor: pointer;
