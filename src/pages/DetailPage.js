@@ -10,7 +10,6 @@ const DetailPage = ({ authService }) => {
   const [productData, setProductData] = useRecoilState(productDataState);
   // const data = productData[loginMail];
   const match = useRouteMatch();
-  console.log(match.path);
   const data = match.path==="/cart" ? productData[loginMail].cart : productData[loginMail].product
   const messgae = match.path==="/cart" ? "내가 담은 목록" : "내가 등록한 상품"
 

@@ -15,9 +15,10 @@ const MainPage = ({ authService }) => {
   const [filteredData, setFilteredData] = useState();
 
   useEffect(()=> {
+    console.log(productData);
     setFilteredData(productData);
   },[])
-  
+
   useEffect(() => {
     loginMail && setUserProductData(productData[loginMail]);
   }, [loginMail, productData, setUserProductData]);
@@ -66,11 +67,11 @@ const MainPage = ({ authService }) => {
         ))}
       </div>
       <div className="product--container">
-        {filteredData &&
-          Object.keys(filteredData).map((user, index) => (
+        {productData &&
+          Object.keys(filteredData || productData).map((user, index) => (
             <Product
               key={index}
-              userData={filteredData[user].product}
+              userData={(filteredData && filteredData[user].product) || productData[user].product}
               register={user}
             />
           ))}

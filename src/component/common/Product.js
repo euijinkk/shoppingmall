@@ -39,25 +39,21 @@ const Product = ({ userData, register }) => {
   };
 
   const handleCart = async (data) => {
-    // console.log(data);
     if (!loginMail) {
       history.push('/login');
       return;
     }
     const a = productData[loginMail].cart.concat([data]);
-    console.log(a);
     const b = {
       ...productData,
       [loginMail]: { ...productData[loginMail], cart: a },
     };
-    console.log(b);
     setProductData(b);
     await createProductData(b);
   };
 
   const handleCartDelete = async (data) => {
     const a = productData[loginMail].cart.filter((item) => item !== data);
-    console.log(a);
     const b = {
       ...productData,
       [loginMail]: { ...productData[loginMail], cart: a },

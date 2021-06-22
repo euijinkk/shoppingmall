@@ -82,10 +82,6 @@ const RegisterPage = () => {
       );
       willGo = '/my';
     } else {
-      console.log(
-        'id값',
-        productData[loginMail] ? productData[loginMail].product.length + 1 : 1,
-      );
       const newOne = {
         ...form,
         id: productData[loginMail]
@@ -106,9 +102,6 @@ const RegisterPage = () => {
     setProductData(newData3);
     history.push(willGo);
   };
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
 
   return (
     <RegisterWrapper>

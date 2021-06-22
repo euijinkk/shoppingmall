@@ -17,12 +17,7 @@ const LoginPage = ({ authService }) => {
   const onLogin = (event) => {
     authService //
       .login(event.currentTarget.textContent)
-    //   .then(data => console.log(data));
       .then(data => goToMain(data.additionalUserInfo.profile.email))
-    
-    //   .then(data => console.log(data))
-        // goToMain(data.additionalUserInfo.profile.mail));
-    //   .then((data) => goToMain(data.user.uid));
   };
 //   useEffect(() => {
 //     authService.onAuthChange((user) => {
