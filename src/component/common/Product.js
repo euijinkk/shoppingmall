@@ -55,7 +55,12 @@ const Product = ({ userData, register }) => {
   };
 
   const handleCartDelete = async (data) => {
-    
+    const a = productData[loginMail].cart.filter(item => item !==data);
+    console.log(a);
+    const b = {...productData, [loginMail]:{...productData[loginMail],
+    cart:a}}
+    setProductData(b);
+    await createProductData(b);
   }
 
   return (
