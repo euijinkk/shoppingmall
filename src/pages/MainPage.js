@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useEffect } from 'react';
-import { useRecoilState} from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { loginMailState } from '../states';
 import { Header, Product } from '../component';
@@ -12,6 +12,7 @@ const MainPage = ({ authService }) => {
   const [loginMail, setLoginMail] = useRecoilState(loginMailState);
   const [userProductData, setUserProductData] =
     useRecoilState(userProductDataState);
+  const [filteredData, setFilteredData] = useState(productData);
 
   useEffect(() => {
     loginMail && setUserProductData(productData[loginMail]);
@@ -29,24 +30,47 @@ const MainPage = ({ authService }) => {
   useEffect(() => {
     getData();
   }, []);
-  
+
+  const handleFilter = (event) => {
+    const categoryName = event.target.innerText;
+    let tempData = productData;
+
+    if (categoryName === "All") {
+      setFilteredData(productData);
+      return;
+    }
+    for (let key in productData) {
+      const userFilteredData = productData[key].product.filter(
+        (item) => item[0].category === categoryName,
+      );
+      tempData = {
+        ...tempData,
+        [key]: { ...tempData[key], product: userFilteredData },
+      };
+    }
+    setFilteredData(tempData);
+  };
+
   return (
     <MainWrapper>
       <Header authService={authService} />
       <div className="category">
-        <span>All</span>
-        <span>상의</span>
-        <span>하의</span>
-        <span>신발</span>
-        <span>악세서리</span>
+        {['All', '상의', '하의', '신발', '악세서리'].map((category, index) => (
+          <span key={index} onClick={handleFilter}>
+            {category}
+          </span>
+        ))}
       </div>
       <div className="product--container">
-        {productData &&
-          Object.keys(productData).map((user, index) => (
-            <Product key={index} userData={productData[user].product} register={user} />
+        {filteredData &&
+          Object.keys(filteredData).map((user, index) => (
+            <Product
+              key={index}
+              userData={filteredData[user].product}
+              register={user}
+            />
           ))}
       </div>
-      
     </MainWrapper>
   );
 };
