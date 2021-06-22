@@ -12,8 +12,12 @@ const MainPage = ({ authService }) => {
   const [loginMail, setLoginMail] = useRecoilState(loginMailState);
   const [userProductData, setUserProductData] =
     useRecoilState(userProductDataState);
-  const [filteredData, setFilteredData] = useState(productData);
+  const [filteredData, setFilteredData] = useState();
 
+  useEffect(()=> {
+    setFilteredData(productData);
+  },[])
+  
   useEffect(() => {
     loginMail && setUserProductData(productData[loginMail]);
   }, [loginMail, productData, setUserProductData]);
