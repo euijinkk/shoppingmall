@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { createProductData } from '../lib/api/client';
-import BasicTextFields from '../service/material/BasicTextFields';
-import CustomizedRadios from '../service/material/CustomizedRadios';
-import CustomizedSelects from '../service/material/CustomizedSelects';
-import MultilineTextFields from '../service/material/MultilineTextFields';
 import {
-  loginMailState,
-  productDataState,
-  registerTempState,
-  userProductDataState,
-} from '../states';
+  BasicTextFields,
+  CustomizedRadios,
+  CustomizedSelects,
+  MultilineTextFields,
+} from '../service';
+import { loginMailState, productDataState } from '../states';
 
 const RegisterPage = () => {
   const history = useHistory();
@@ -20,7 +17,6 @@ const RegisterPage = () => {
   const loginMail = useRecoilValue(loginMailState);
   const [productData, setProductData] = useRecoilState(productDataState);
   const [previewURL, setPreviewURL] = useState();
-
   const [form, setForm] = useState(
     location.state
       ? location.state.data[0]

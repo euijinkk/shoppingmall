@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { RecoilRoot } from 'recoil';
 import theme from './styles/theme';
 import GlobalStyle from './styles/GlobalStyle';
-import AuthService from './service/auth_service';
+import AuthService from './service/firebase/auth_service';
 import { StylesProvider } from '@material-ui/styles';
 
 const authService = new AuthService();
