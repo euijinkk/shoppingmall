@@ -6,21 +6,24 @@ import { loginMailState } from '../states';
 import { Header, Product } from '../component';
 import { getProductData } from '../lib/api/client';
 import { productDataState, userProductDataState } from '../states';
+import { IProductData } from '../types';
 
-const MainPage = ({ authService }) => {
+const MainPage: React.FC<any> = ({ authService }) => {
   const [productData, setProductData] = useRecoilState(productDataState);
   const [loginMail, setLoginMail] = useRecoilState(loginMailState);
   const [userProductData, setUserProductData] =
     useRecoilState(userProductDataState);
-  const [filteredData, setFilteredData] = useState();
-
-  useEffect(()=> {
-    console.log(productData);
-    setFilteredData(productData);
-  },[])
+  const [filteredData, setFilteredData] = useState<IProductData>();
 
   useEffect(() => {
-    loginMail && setUserProductData(productData[loginMail]);
+    console.log(productData);
+    productData && setFilteredData(productData);
+  }, []);
+
+  useEffect(() => {
+    productData &&
+      loginMail &&
+      setUserProductData(productData[loginMail]?.product);
   }, [loginMail, productData, setUserProductData]);
 
   // const getData = useCallback(async () => {
@@ -36,22 +39,26 @@ const MainPage = ({ authService }) => {
     getData();
   }, []);
 
-  const handleFilter = (event) => {
-    const categoryName = event.target.innerText;
+  const handleFilter = (
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+  ) => {
+    const target = event.target as HTMLElement;
+    const categoryName = target.innerText;
     let tempData = productData;
 
-    if (categoryName === "All") {
+    if (categoryName === 'All') {
       setFilteredData(productData);
       return;
     }
     for (let key in productData) {
-      const userFilteredData = productData[key].product.filter(
-        (item) => item[0].category === categoryName,
+      const userFilteredData = productData[key]?.product.filter(
+        (item) => item.category === categoryName,
       );
-      tempData = {
-        ...tempData,
-        [key]: { ...tempData[key], product: userFilteredData },
-      };
+      tempData &&
+        (tempData = {
+          ...tempData,
+          [key]: { ...tempData[key], product: userFilteredData },
+        });
     }
     setFilteredData(tempData);
   };
@@ -71,7 +78,10 @@ const MainPage = ({ authService }) => {
           Object.keys(filteredData || productData).map((user, index) => (
             <Product
               key={index}
-              userData={(filteredData && filteredData[user].product) || productData[user].product}
+              userData={
+                (filteredData && filteredData[user].product) ||
+                productData[user].product
+              }
               register={user}
             />
           ))}

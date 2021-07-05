@@ -8,7 +8,9 @@ import GlobalStyle from './styles/GlobalStyle';
 import AuthService from './service/firebase/auth_service';
 import { StylesProvider } from '@material-ui/styles';
 
-const authService = new AuthService();
+// type Class = { new (...args: any[]): any };
+
+const authService: any = new AuthService();
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>

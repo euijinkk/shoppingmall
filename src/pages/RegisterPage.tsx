@@ -10,16 +10,19 @@ import {
   MultilineTextFields,
 } from '../service';
 import { loginMailState, productDataState } from '../states';
+import { IProduct } from '../types';
 
 const RegisterPage = () => {
   const history = useHistory();
   const location = useLocation();
+
+  const locationState: any = location.state;
   const loginMail = useRecoilValue(loginMailState);
   const [productData, setProductData] = useRecoilState(productDataState);
-  const [previewURL, setPreviewURL] = useState();
-  const [form, setForm] = useState(
-    location.state
-      ? location.state.data[0]
+  const [previewURL, setPreviewURL] = useState<any>(null);
+  const [form, setForm] = useState<IProduct>(
+    locationState
+      ? locationState.data[0]
       : {
           id: 0,
           title: '',
@@ -48,7 +51,9 @@ const RegisterPage = () => {
   //   location.state && setForm(location.state.data[0]);
   // }, []);
 
-  const handleChange = (event) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
     event.preventDefault();
     const name = event.target.name;
     setForm({
@@ -57,11 +62,12 @@ const RegisterPage = () => {
     });
   };
 
-  const handleImageUpload = (event) => {
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    let file = event.target.files[0];
-    let reader = new FileReader();
-    reader.onloadend = (e) => {
+    const target = event.target as HTMLInputElement;
+    let file: any = target.files;
+    let reader: any = new FileReader();
+    reader.onloadend = () => {
       setPreviewURL(reader.result);
       setForm({ ...form, img: reader.result });
     };
@@ -73,24 +79,28 @@ const RegisterPage = () => {
     let newData2;
     let willGo;
     if (form.id !== 0) {
-      newData = productData[loginMail].product.map((item) =>
-        item[0].id === form.id ? [form] : item,
-      );
+      newData =
+        productData &&
+        productData[loginMail].product.map((item) =>
+          item.id === form.id ? [form] : item,
+        );
       willGo = '/my';
     } else {
-      const newOne = {
+      const newOne: any = productData && {
         ...form,
         id: productData[loginMail]
           ? productData[loginMail].product.length + 1
           : 1,
       };
       setForm(newOne);
-      newData = productData[loginMail].product
-        ? productData[loginMail].product.concat([[newOne]])
-        : [[newOne]];
+      // .concat([[newOne]])
+      newData =
+        productData && productData[loginMail].product
+          ? productData[loginMail].product.concat([newOne])
+          : [[newOne]];
       willGo = '/';
     }
-    newData2 = {
+    newData2 = productData && {
       ...productData,
       [loginMail]: { ...productData[loginMail], product: newData },
     };

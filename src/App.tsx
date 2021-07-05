@@ -2,8 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { MainPage, LoginPage, DetailPage, RegisterPage } from './pages';
 
-const App = ({ authService }) => {
-
+const App: React.FC<any> = ({ authService }) => {
   return (
     <Router>
       <Switch>
@@ -17,13 +16,11 @@ const App = ({ authService }) => {
           path="/login"
           component={() => <LoginPage authService={authService} />}
         />
-          <Route exact path="/regist" component={() => <RegisterPage />} />
+        <Route exact path="/regist" component={() => <RegisterPage />} />
         <Route
           exact
           path="/my"
-          component={() => (
-            <DetailPage authService={authService} />
-          )}
+          component={() => <DetailPage authService={authService} />}
         />
         <Route exact path="/cart" component={() => <DetailPage />} />
       </Switch>

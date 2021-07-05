@@ -4,26 +4,26 @@ import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { loginMailState } from '../states';
 
-const LoginPage = ({ authService }) => {
+const LoginPage: React.FC<any> = ({ authService }) => {
   const setLoginMail = useSetRecoilState(loginMailState);
   const history = useHistory();
-  const goToMain = (userMail) => {
+  const goToMain = (userMail: string) => {
     setLoginMail(userMail);
     history.push({
       pathname: '/',
       state: { mail: userMail },
     });
   };
-  const onLogin = (event) => {
+  const onLogin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     authService //
       .login(event.currentTarget.textContent)
-      .then(data => goToMain(data.additionalUserInfo.profile.email))
+      .then((data: any) => goToMain(data.additionalUserInfo.profile.email));
   };
-//   useEffect(() => {
-//     authService.onAuthChange((user) => {
-//       user && goToMain(user.uid);
-//     });
-//   });
+  //   useEffect(() => {
+  //     authService.onAuthChange((user) => {
+  //       user && goToMain(user.uid);
+  //     });
+  //   });
   return (
     <LoginWrapper>
       <div className="logo">SOPT Shop</div>

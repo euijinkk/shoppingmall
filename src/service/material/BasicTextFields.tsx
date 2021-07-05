@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { IProduct } from '../../types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,7 +12,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicTextFields({title, handleChange, form}) {
+interface Props {
+  title: string;
+  handleChange: (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => void;
+  form: IProduct;
+}
+
+export default function BasicTextFields({ title, handleChange, form }: Props) {
   const classes = useStyles();
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -28,7 +37,7 @@ export default function BasicTextFields({title, handleChange, form}) {
         variant="outlined"
         onChange={handleChange}
         // defaultValue={title==="title" ? title2 : price2}
-        defaultValue={form[title] ? form[title] : ""}
+        defaultValue={form[title] ? form[title] : ''}
       />
     </form>
   );

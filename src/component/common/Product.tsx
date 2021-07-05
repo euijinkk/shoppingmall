@@ -9,16 +9,23 @@ import {
 } from '../../states';
 import AddIcon from '@material-ui/icons/Add';
 import { createProductData } from '../../lib/api/client';
+import { IProduct, ICart } from '../../types';
 
-const Product = ({ userData, register }) => {
+interface Props {
+  userData: IProduct[] | ICart[];
+  register?: string;
+  user?: string;
+}
+
+const Product: React.FC<Props> = ({ userData, register }) => {
   const history = useHistory();
   const location = useLocation();
   const loginMail = useRecoilValue(loginMailState);
   const [productData, setProductData] = useRecoilState(productDataState);
 
-  const handleDelete = async (data) => {
-    const newData = userData.filter((user) => user[0].id !== data[0].id);
-    const newData2 = {
+  const handleDelete = async (data: IProduct | ICart) => {
+    const newData = userData.filter((user) => user.id !== data.id);
+    const newData2 = productData && {
       ...productData,
       [loginMail]: {
         ...productData[loginMail],
@@ -29,7 +36,7 @@ const Product = ({ userData, register }) => {
     setProductData(newData3);
   };
 
-  const handleEdit = async (data) => {
+  const handleEdit = async (data: IProduct | ICart) => {
     history.push({
       pathname: '/regist',
       state: {
@@ -38,13 +45,13 @@ const Product = ({ userData, register }) => {
     });
   };
 
-  const handleCart = async (data) => {
+  const handleCart = async (data: IProduct | ICart) => {
     if (!loginMail) {
       history.push('/login');
       return;
     }
-    const a = productData[loginMail].cart.concat([data]);
-    const b = {
+    const a = productData && productData[loginMail].cart.concat([data]);
+    const b: any = productData && {
       ...productData,
       [loginMail]: { ...productData[loginMail], cart: a },
     };
@@ -52,9 +59,11 @@ const Product = ({ userData, register }) => {
     await createProductData(b);
   };
 
-  const handleCartDelete = async (data) => {
-    const a = productData[loginMail].cart.filter((item) => item !== data);
-    const b = {
+  const handleCartDelete = async (data: IProduct | ICart) => {
+    const a =
+      productData &&
+      productData[loginMail].cart.filter((item) => item !== data);
+    const b: any = productData && {
       ...productData,
       [loginMail]: { ...productData[loginMail], cart: a },
     };
@@ -66,13 +75,13 @@ const Product = ({ userData, register }) => {
     <ProductWrapper>
       {userData &&
         userData.map((data) => (
-          <div key={data[0].id} className="product">
+          <div key={data.id} className="product">
             <div className="product--list">
-              <img src={data[0].img} alt="product" />
+              <img src={data.img} alt="product" />
               <div className="metadata">
-                <span>{data[0].title}</span>
-                <span>{data[0].price}</span>
-                <span>{data[0].delivery}</span>
+                <span>{data.title}</span>
+                <span>{data.price}</span>
+                <span>{data.delivery}</span>
                 <span>{register}</span>
               </div>
             </div>
@@ -110,8 +119,8 @@ const MyButton = styled(AddIcon)`
   position: absolute;
   /* right: 20px; */
   bottom: 20px;
-  left:50%;
-  transform:translateX(-50%);
+  left: 50%;
+  transform: translateX(-50%);
   /* absoulte를 가운데 정렬 시키는 방법 */
   background-color: skyblue;
   border-radius: 50%;
